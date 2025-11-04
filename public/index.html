@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fun Fact Generator | Khurram’s Firebase App</title>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #4facfe, #00f2fe);
+      color: white;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      text-align: center;
+    }
+    h1 {
+      font-size: 2.2rem;
+      margin-bottom: 1rem;
+    }
+    #fact {
+      font-size: 1.3rem;
+      background: rgba(255, 255, 255, 0.2);
+      padding: 15px 25px;
+      border-radius: 12px;
+      max-width: 600px;
+      transition: 0.4s;
+    }
+    button {
+      margin-top: 25px;
+      padding: 10px 20px;
+      font-size: 1.1rem;
+      border: none;
+      border-radius: 8px;
+      background-color: white;
+      color: #0078ff;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    button:hover {
+      background-color: #e3f2fd;
+      transform: scale(1.05);
+    }
+    footer {
+      position: absolute;
+      bottom: 10px;
+      font-size: 0.9rem;
+      opacity: 0.8;
+    }
+  </style>
+</head>
+<body>
+  <h1>🤖 Fun Fact Generator</h1>
+  <p id="fact">Click the button to learn something new!</p>
+  <button onclick="getFact()">Get Fun Fact</button>
+
+  <footer>Made with ❤️ by Khurram | Hosted on Firebase</footer>
+
+  <script>
+    async function getFact() {
+      const factText = document.getElementById("fact");
+      factText.textContent = "Fetching a fun fact... 🌀";
+      try {
+        const res = await fetch("https://uselessfacts.jsph.pl/api/v2/facts/random");
+        const data = await res.json();
+        factText.textContent = data.text;
+      } catch (err) {
+        factText.textContent = "Oops! Couldn't fetch a fact 😢";
+        console.error(err);
+      }
+    }
+  </script>
+</body>
+</html>
